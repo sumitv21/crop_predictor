@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <p style="text-align: right;">
+    Welcome, {{ farmer_name }} from {{ village }} |
+    <a href="{{ url_for('logout') }}">Logout</a>
+    </p>
+
+    <h1>🌾 Predicted price for {{ selected_crop }}: ₹{{ predicted_price }}/kg</h1>
+
+    <h3>📈 Price Trend</h3>
+    <canvas id="priceChart" width="600" height="300"></canvas>
+    <script>
+        const labels = {{ chart_labels | safe }};
+        const data = {{ chart_values | safe }};
+        new Chart(document.getElementById("priceChart"), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Price per kg (₹)',
+                    data: data,
+                    borderColor: 'green',
+                    backgroundColor: 'lightgreen',
+                    tension: 0.3
+                }]
+            }
+        });
+    </script>
+
+    {% if storage_suggestion %}
+        <h3>📦 Storage Suggestion:</h3>
+        <p>{{ storage_suggestion }}</p>
+    {% endif %}
+
+    {% if weather %}
+        <h3>🌤️ Weather in {{ city_name }}:</h3>
+        <p>{{ weather.temperature }}°C, {{ weather.humidity }}% humidity, {{ weather.description }}</p>
+    {% endif %}
+
+    {% if logistics %}
+        <h3>🚛 Suggested Market for Sale:</h3>
+        <p><strong>{{ logistics.market }}</strong> — {{ logistics.distance }} away (approx. {{ logistics.duration }})</p>
+    {% endif %}
+</body>
+</html>

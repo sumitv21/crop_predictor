@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Crop</title>
+</head>
+<body>
+    <h2>Welcome {{ farmer_name }} from {{ village }}</h2>
+    <form method="post" action="{{ url_for('result') }}">
+        <label>Select Crop:</label>
+        <select name="crop">
+            {% for crop in crops %}
+                <option value="{{ crop }}">{{ crop }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label>Enter City/Village:</label>
+        <input type="text" name="city" required>
+        <br><br>
+        <button type="submit">Predict Price</button>
+    </form>
+</body>
+</html>
