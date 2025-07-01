@@ -1,14 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Farmer Login</title>
+  <meta charset="UTF-8">
+  <title>Farmer Login – Crop Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 80px auto;
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #232f3e;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 20px;
+      display: block;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #ff9900;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e68a00;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 40px 16px;
+        padding: 30px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h2>👨‍🌾 Farmer Login</h2>
+
+  <div class="container">
+    <h2>🌿 Farmer Login</h2>
     <form method="post">
-        <input type="text" name="name" placeholder="Enter your name" required>
-        <input type="text" name="village" placeholder="Enter your village" required>
-        <button type="submit">Login</button>
+      <label for="name">Your Name</label>
+      <input type="text" name="name" placeholder="e.g., Ramesh" required>
+
+      <label for="village">Your Village / City</label>
+      <input type="text" name="village" placeholder="e.g., Yeola" required>
+
+      <button type="submit">Login &rarr;</button>
     </form>
+
+    <div class="footer">
+      <p>© 2025 Crop Predictor</p>
+    </div>
+  </div>
+
 </body>
 </html>

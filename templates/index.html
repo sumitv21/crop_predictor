@@ -1,22 +1,187 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Select Crop</title>
+  <meta charset="UTF-8">
+  <title>Crop Price Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f6f6f6;
+      color: #333;
+    }
+
+    /* Header */
+    .navbar {
+      background-color: #232f3e;
+      color: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .navbar a {
+      color: #ff9900;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Main container */
+    .main {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 20px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #ff9900;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e68a00;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      color: #e74c3c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Spinner Overlay */
+    #loader {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #2d89ef;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 640px) {
+      .main {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      .navbar {
+        padding: 12px 20px;
+      }
+
+      .navbar h1 {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h2>Welcome {{ farmer_name }} from {{ village }}</h2>
+
+  <!-- ✅ Spinner (placed in correct location now) -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="navbar">
+    <h1>🌾 Crop Predictor</h1>
+    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main">
+    <h2>Welcome {{ farmer_name }} ({{ village }})</h2>
     <form method="post" action="{{ url_for('result') }}">
-        <label>Select Crop:</label>
-        <select name="crop">
-            {% for crop in crops %}
-                <option value="{{ crop }}">{{ crop }}</option>
-            {% endfor %}
-        </select>
-        <br><br>
-        <label>Enter City/Village:</label>
-        <input type="text" name="city" required>
-        <br><br>
-        <button type="submit">Predict Price</button>
+      <!-- District -->
+      <label>Enter District</label>
+      <input type="text" name="district" placeholder="e.g., Nashik" required>
+
+      <!-- Taluka -->
+      <label>Enter Taluka</label>
+      <input type="text" name="taluka" placeholder="e.g., Yeola" required>
+
+      <!-- Crop -->
+      <label>Select Crop</label>
+      <select name="crop" required>
+        {% for crop in crops %}
+          <option value="{{ crop }}">{{ crop }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit"><i class="fas fa-leaf"></i> Predict Price</button>
     </form>
+  </div>
+
+  <script>
+    const form = document.querySelector("form");
+    const loader = document.getElementById("loader");
+
+    form.addEventListener("submit", function () {
+      loader.style.display = "flex";
+    });
+  </script>
 </body>
 </html>
