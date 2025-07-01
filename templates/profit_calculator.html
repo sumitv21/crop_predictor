@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Profit Calculator{% endblock %}
+{% block content %}
+<h2>💰 Crop Profit Calculator</h2>
+<form method="post" action="/calculate-profit">
+  <label>Crop Name:</label>
+  <input type="text" name="crop" required>
+
+  <label>Area (in acres):</label>
+  <input type="number" name="area" step="0.1" required>
+
+  <label>Expected Yield (in kg/acre):</label>
+  <input type="number" name="yield" required>
+
+  <label>Market Price (₹/kg):</label>
+  <input type="number" name="price" required>
+
+  <label>Total Cost (₹):</label>
+  <input type="number" name="cost" required>
+
+  <button type="submit">Calculate</button>
+</form>
+{% if profit is defined %}
+  <h3>Estimated Profit: ₹{{ profit }}</h3>
+{% endif %}
+{% endblock %}

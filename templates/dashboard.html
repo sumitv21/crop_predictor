@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="main">
+  <h2>Welcome {{ farmer_name }} ({{ village }})</h2>
+  <form method="post" action="{{ url_for('result') }}">
+    <label>Enter District</label>
+    <input type="text" name="district" placeholder="e.g., Nashik" required>
+
+    <label>Enter Taluka</label>
+    <input type="text" name="taluka" placeholder="e.g., Yeola" required>
+
+    <label>Select Crop</label>
+    <select name="crop" required>
+      {% for crop in crops %}
+        <option value="{{ crop }}">{{ crop }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit"><i class="fas fa-leaf"></i> Predict Price</button>
+  </form>
+</div>
+{% endblock %}

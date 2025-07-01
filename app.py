@@ -65,6 +65,46 @@ def login():
             return redirect(url_for('home'))
     return render_template("login.html")
 
+
+@app.route('/crop-diseases')
+def crop_diseases():
+    return render_template("crop_diseases.html")
+
+@app.route('/farming-methods')
+def farming_methods():
+    return render_template("farming_methods.html")
+@app.route("/storage-methods")
+def storage_methods():
+    return render_template("storage_methods.html")
+
+@app.route("/farming-tools")
+def farming_tools():
+    return render_template("farming_tools.html")
+
+@app.route("/profit-calculator")
+def profit_calculator():
+    return render_template("profit_calculator.html")
+@app.route("/calculate-profit", methods=["POST"])
+def calculate_profit():
+    crop = request.form["crop"]
+    area = float(request.form["area"])
+    yield_ = float(request.form["yield"])
+    price = float(request.form["price"])
+    cost = float(request.form["cost"])
+
+    total_income = area * yield_ * price
+    profit = total_income - cost
+
+    return render_template("profit_calculator.html", profit=profit)
+
+
+@app.route('/index')
+def index():
+    # Render index.html with necessary context
+    crops = ["Onion"]  # replace with real list
+    return render_template("index.html", crops=crops)
+
+
 # ✅ Logout Route
 @app.route('/logout')
 def logout():
